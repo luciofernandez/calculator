@@ -1,0 +1,72 @@
+openapi: 3.0.3
+info:
+  title: Calculadora API
+  description: API de ejemplo para realizar operaciones aritméticas (POC)
+  version: 1.0.0
+paths:
+  /calculator/add:
+    post:
+      tags:
+        - Calculator	
+      summary: Add two numbers
+      operationId: add
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OperationRequest'
+      responses:
+        "200":
+          description: Result of the sum
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResponse'
+        "400":
+          description: Incorrect request
+  /calculator/subtract:
+    post:
+      tags:
+        - Calculator			
+      summary: Subtract two numbers
+      operationId: subtract
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OperationRequest'
+      responses:
+        "200":
+          description: Result of the substract
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResponse'
+        "400":
+          description: Incorrect request
+
+components:
+  schemas:
+    OperationRequest:
+      type: object
+      properties:
+        number1:
+          type: number
+          format: double
+          example: 10
+        number2:
+          type: number
+          format: double
+          example: 5
+      required:
+        - number1
+        - number2
+    OperationResponse:
+      type: object
+      properties:
+        result:
+          type: number
+          format: double
+          example: 15
