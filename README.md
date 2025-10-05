@@ -56,8 +56,24 @@ mvn test
 ## ▶️ Pruebas
 
 ```bash
-curl -X POST "http://localhost:8080/sumar?a=5&b=3"
-curl -X POST "http://localhost:8080/restar?a=5&b=3"
+curl -X 'POST' \
+  'http://localhost:8080/calculator/operate' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "operation": "add",
+  "number1": 5,
+  "number2": 5
+}'
+curl -X 'POST' \
+  'http://localhost:8080/calculator/operate' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "operation": "subtract",
+  "number1": 10,
+  "number2": 5
+}'
 ```
 
 ## ▶️ Swagger

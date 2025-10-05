@@ -4,42 +4,24 @@ info:
   description: API de ejemplo para realizar operaciones aritméticas (POC)
   version: 1.0.0
 paths:
-  /calculator/add:
+  /calculator/operate:
     post:
-      tags:
-        - Calculator	
-      summary: Add two numbers
-      operationId: add
+      summary: Perform a calculation
+      operationId: calculate
+      description: Receives two numbers and an operation type to perform and returns the result of the operation.	  
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/OperationRequest'
+              example:
+                a: 5.0
+                b: 3.0
+                operation: "add"
       responses:
         "200":
           description: Result of the sum
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OperationResponse'
-        "400":
-          description: Incorrect request
-  /calculator/subtract:
-    post:
-      tags:
-        - Calculator			
-      summary: Subtract two numbers
-      operationId: subtract
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/OperationRequest'
-      responses:
-        "200":
-          description: Result of the substract
           content:
             application/json:
               schema:
@@ -52,6 +34,10 @@ components:
     OperationRequest:
       type: object
       properties:
+        operation:
+          type: string
+          description: "The operation to perform (e.g. add, subtract)"
+          example: "add"
         number1:
           type: number
           format: double
@@ -70,3 +56,5 @@ components:
           type: number
           format: double
           example: 15
+      required:
+        - result
