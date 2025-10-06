@@ -56,8 +56,22 @@ mvn test
 ## ▶️ Pruebas
 
 ```bash
-curl -X POST "http://localhost:8080/add?a=5&b=3"
-curl -X POST "http://localhost:8080/subtract?a=5&b=3"
+curl -X 'POST' \
+  'http://localhost:8080/calculator/add' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "number1": 5,
+  "number2": 5
+}'
+curl -X 'POST' \
+  'http://localhost:8080/calculator/subtract' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "number1": 10,
+  "number2": 5
+}'
 ```
 
 ## ▶️ Swagger

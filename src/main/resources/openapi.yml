@@ -15,14 +15,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OperationRequest'
+                $ref: '#/components/schemas/AddRequest'
         responses:
           "200":
             description: Result of the sum
             content:
               application/json:
                 schema:
-                  $ref: '#/components/schemas/OperationResponse'
+                  $ref: '#/components/schemas/CalculatorResponse'
           "400":
             description: Incorrect request
     /calculator/subtract:
@@ -36,19 +36,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OperationRequest'
+                $ref: '#/components/schemas/SubtractRequest'
         responses:
           "200":
             description: Result of the substract
             content:
               application/json:
                 schema:
-                  $ref: '#/components/schemas/OperationResponse'
+                  $ref: '#/components/schemas/CalculatorResponse'
           "400":
             description: Incorrect request
 components:
   schemas:
-    OperationRequest:
+    AddRequest:
       type: object
       properties:
         number1:
@@ -62,7 +62,21 @@ components:
       required:
         - number1
         - number2
-    OperationResponse:
+    SubtractRequest:
+      type: object
+      properties:
+        number1:
+          type: number
+          format: double
+          example: 15
+        number2:
+          type: number
+          format: double
+          example: 5
+      required:
+        - number1
+        - number2		
+    CalculatorResponse:
       type: object
       properties:
         result:

@@ -16,12 +16,12 @@ public class CalculatorServiceImpl implements CalculatorService {
     
     public double add(double a, double b) {
         double result = a + b;
-        tracer.traceOperation(result);
+        tracer.trace(result);
         return result;
     }
     public double subtract(double a, double b) {
         double result = a - b;
-        tracer.traceOperation(result);
+        tracer.trace(result);
         return result;
     }
     
