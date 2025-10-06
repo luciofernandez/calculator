@@ -1,10 +1,9 @@
 
 # 📚 Calculator Service
 
-Este proyecto es una API REST que expone dos endpoints:
+Este proyecto es una API REST que expone un sólo endpoint:
 
-- `/add` → suma dos números.  
-- `/subtract` → resta dos números.  
+- `/operate` → suma o resta dos números.  
 
 Además, implementa una librería para trazar sus resultados.
 
