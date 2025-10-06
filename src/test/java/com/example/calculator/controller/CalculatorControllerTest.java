@@ -1,59 +1,61 @@
 package com.example.calculator.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.servlet.MockMvc;
 
-import com.ejemplo.calculator.model.OperationRequest;
-import com.ejemplo.calculator.model.OperationResponse;
-import com.example.calculator.dto.OperationType;
 import com.example.calculator.service.CalculatorService;
 
+@WebMvcTest(CalculatorController.class) 
 public class CalculatorControllerTest {
 
-	private CalculatorService calculatorService;
-	private CalculatorController calculatorController;
+    @Autowired
+    private MockMvc mockMvc;  
+    
+    @MockitoBean
+    private CalculatorService calculatorService;
 
-	@BeforeEach
-	void setUp() {
-		calculatorService = Mockito.mock(CalculatorService.class);
-		calculatorController = new CalculatorController(calculatorService);
-	}
+
+    @Test
+    void testAdd() throws Exception {
+    	
+        when(calculatorService.add(2.0, 3.0)).thenReturn(5.0);
+
+        mockMvc.perform(post("/calculator/add")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                        {
+                          "number1": 2.0,
+                          "number2": 3.0
+                        }
+                        """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.result").value(5.0));
+    }
+    
 
 	@Test
-	void testAdd() {
-		OperationRequest request = new OperationRequest();
-		request.setNumber1(5.0);
-		request.setNumber2(3.0);
-		request.setOperation(OperationType.ADD.name());
+	void testSubtract() throws Exception {
+        when(calculatorService.subtract(10.0, 4.0)).thenReturn(6.0);
 
-		when(calculatorService.calculate(5.0, 3.0, OperationType.ADD)).thenReturn(8.0);
-
-		ResponseEntity<OperationResponse> response = calculatorController.calculate(request);
-
-		assertEquals(200, response.getStatusCodeValue());
-		assertEquals(8.0, response.getBody().getResult());
-	}
-
-	@Test
-	void testSubtract() {
-		OperationRequest request = new OperationRequest();
-		request.setNumber1(10.0);
-		request.setNumber2(4.0);
-		request.setOperation(OperationType.SUBTRACT.name());
-
-		when(calculatorService.calculate(10.0, 4.0, OperationType.SUBTRACT)).thenReturn(6.0);
-
-		ResponseEntity<OperationResponse> response = calculatorController.calculate(request);
-
-		assertEquals(200, response.getStatusCodeValue());
-		assertEquals(6.0, response.getBody().getResult());
+        mockMvc.perform(post("/calculator/subtract")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                        {
+                          "number1": 10.0,
+                          "number2": 4.0
+                        }
+                        """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.result").value(6.0));
 	}
 	
 }

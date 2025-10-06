@@ -2,7 +2,6 @@ package com.example.calculator.service;
 
 import org.springframework.stereotype.Service;
 
-import com.example.calculator.dto.OperationType;
 import com.example.calculator.integration.TracerClient;
 
 
@@ -15,28 +14,16 @@ public class CalculatorServiceImpl implements CalculatorService {
         this.tracer = tracerClient;
     }
     
-    public double calculate(double a, double b, OperationType operationType) {
-    	double result;
-    	
-        if (operationType == OperationType.ADD) {
-           result = add(a,b);
-        } else if (operationType == OperationType.SUBTRACT) {
-        	result = subtract(a,b);
-        } else {
-        	throw new IllegalArgumentException("Unsupported operation: " + operationType);
-        }
-        
+    public double add(double a, double b) {
+        double result = a + b;
         tracer.traceOperation(result);
-        
         return result;
-
     }
-	
-    private double add(double a, double b) {
-        return a + b;
+    public double subtract(double a, double b) {
+        double result = a - b;
+        tracer.traceOperation(result);
+        return result;
     }
-    private double subtract(double a, double b) {
-        return a - b;
-    }
+    
 
 }

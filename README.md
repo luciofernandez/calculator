@@ -3,7 +3,8 @@
 
 Este proyecto es una API REST que expone un sólo endpoint:
 
-- `/operate` → suma o resta dos números.  
+- `/add` → suma dos números.  
+- `/subtract` → resta dos números.  
 
 Además, implementa una librería para trazar sus resultados.
 
@@ -55,24 +56,8 @@ mvn test
 ## ▶️ Pruebas
 
 ```bash
-curl -X 'POST' \
-  'http://localhost:8080/calculator/operate' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "operation": "add",
-  "number1": 5,
-  "number2": 5
-}'
-curl -X 'POST' \
-  'http://localhost:8080/calculator/operate' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "operation": "subtract",
-  "number1": 10,
-  "number2": 5
-}'
+curl -X POST "http://localhost:8080/add?a=5&b=3"
+curl -X POST "http://localhost:8080/subtract?a=5&b=3"
 ```
 
 ## ▶️ Swagger
