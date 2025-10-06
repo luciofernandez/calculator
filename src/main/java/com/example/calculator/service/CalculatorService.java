@@ -1,27 +1,27 @@
 package com.example.calculator.service;
 
 /**
- * Servicio de operaciones matemáticas básicas.
+ * Basic math operations service.
  * <p>
- * Define las operaciones disponibles para la calculadora.
+ * Defines the operations available for the calculator.
  */
 public interface CalculatorService {
 	
     /**
-     * Suma dos números.
+     * Add two numbers.
      *
-     * @param a primer número
-     * @param b segundo número
-     * @return la suma de {@code a} y {@code b}
+     * @param a first number
+     * @param b second number
+     * @return the sum of {@code a} and {@code b}
      */
 	public double add(double a, double b);
 	
     /**
-     * Resta dos números.
+     * Subtract two numbers.
      *
-     * @param a primer número
-     * @param b segundo número
-     * @return la resta de {@code a - b}
+     * @param a first number
+     * @param b second number
+     * @return the subtraction of {@code a - b}
      */
 	public double subtract(double a, double b);
 
